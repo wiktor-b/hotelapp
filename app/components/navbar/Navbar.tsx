@@ -4,8 +4,16 @@ import Container from "../Container";
 import Logo from "./Logo";
 import Search from "./Search";
 import UserMenu from "./UserMenu";
+import { SafeUser } from "@/app/tyoes";
 
-const Navbar = () => {
+interface NavbarProps {
+  currentUser?: SafeUser | null;
+}
+
+const Navbar: React.FC<NavbarProps> = ({
+  currentUser,
+}) => {
+  console.log(currentUser);
   return (
     <div className="fixed w-full bg-white z-10 shadow-sm">
       <div
@@ -21,7 +29,7 @@ const Navbar = () => {
             </div>
             <Search />
             <div className="absolute right-0">
-              <UserMenu />
+              <UserMenu  currentUser={currentUser}/>
             </div>
           </div>
           {/* <div className="flex flex-row items-center justify-between gap-3 md:gap-0"></div> */}
