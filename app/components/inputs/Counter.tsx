@@ -23,7 +23,7 @@ const Counter: React.FC<CounterProps> = ({
 
 
     const onReduce = useCallback(() => {
-        if(value === 0) return;
+        if(value === 1) return;
         onChange(value - 1);
     },[onChange, value]);
 

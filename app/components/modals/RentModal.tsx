@@ -7,6 +7,7 @@ import Heading from "../Heading";
 import LocationInput from "../inputs/LocationInput";
 import { FieldValues, useForm } from "react-hook-form";
 import Counter from "../inputs/Counter";
+import ImageUpload from "../inputs/ImageUpload";
 
 const locations = [
 {
@@ -62,6 +63,9 @@ const RentModal = () => {
 
     const location = watch('location');
     const guestCount = watch('guestCount');
+    const roomCount = watch('roomCount');
+    const bathroomCount = watch('bathroomCount');
+    const imageSrc = watch('imageSrc');
 
     const setCustomValue = (id:string, value:any) => {
         setValue(id, value,{
@@ -126,9 +130,37 @@ const RentModal = () => {
                 />
                 <Counter
                     title="Guests"
-                    subtitle="How many guests can you accomodate?"
+                    subtitle="Maximum number of guests?"
                     value={guestCount}
                     onChange={(value)=>setCustomValue('guestCount', value)}
+                />
+                <Counter
+                    title="Rooms"
+                    subtitle="Number of rooms?"
+                    value={roomCount}
+                    onChange={(value)=>setCustomValue('roomCount', value)}
+                />
+                <Counter
+                    title="Bathrooms"
+                    subtitle="How many bathrooms?"
+                    value={bathroomCount}
+                    onChange={(value)=>setCustomValue('bathroomCount', value)}
+                />
+            </div>
+        )
+    }
+
+    if (step === STEPS.IMAGES) {
+        bodyContent=(
+            <div className="flex flex-col gap-8">
+                <Heading
+                    title="Add a photo of the room"
+                    subtitle="Showcase your room to guests"
+                />
+                <ImageUpload
+                    value={imageSrc}
+                    onChange={(value)=>setCustomValue('imageSrc', value)}
+
                 />
             </div>
         )
