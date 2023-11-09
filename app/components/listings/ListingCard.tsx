@@ -7,6 +7,7 @@ import { useCallback, useMemo } from "react";
 import {format} from 'date-fns';
 import Image from "next/image";
 import FavButton from "../FavButton";
+import Button from "../Button";
 
 
 interface ListingCardProps {
@@ -31,6 +32,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
 
     const router = useRouter();
     const location = (data.location);
+    const title = (data.title);
 
     const handleCancel=  useCallback(
         (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -86,6 +88,25 @@ const ListingCard: React.FC<ListingCardProps> = ({
                     />
                 </div>
             </div>
+            <div className="font-semibold text-lg">{location}</div>
+            <div className="font-light text-neutral-500">
+                {reservationDate || title}
+            </div>
+            <div className="flex flex-row items-center gap-1">
+                <div className="font-semibold">${price}</div>
+                {!reservation && (
+                    <div className="font-light">night</div>
+                )}
+            </div>
+           
+            {onAction && actionLabel && (
+                <Button
+                    disabled={disabled}
+                    small
+                    label={actionLabel}
+                    onClick={handleCancel}
+                />
+            )}
         </div>
 
     </div> 
