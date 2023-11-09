@@ -2,7 +2,7 @@
 
 import useRentModal from "@/app/hooks/useRentModal";
 import Modal from "./Modal";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Heading from "../Heading";
 import LocationInput from "../inputs/LocationInput";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -13,22 +13,23 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-export const locations = [
-{
-    label: "Gdańsk",
-},
-{
-    label: "Kraków",
-},
-{
-    label: "Sopot",
-},
-{
-    label: "Gdynia",
-},
+
+// export const locations = [
+// {
+//     label: "Gdańsk",
+// },
+// {
+//     label: "Kraków",
+// },
+// {
+//     label: "Sopot",
+// },
+// {
+//     label: "Gdynia",
+// },
 
 
-]
+// ]
 
 enum STEPS {
     LOCATION = 0,
@@ -37,14 +38,38 @@ enum STEPS {
     DESCRIPTION=3,
     PRICE=4,
 }
+interface Location {
+    id: string;
+    label: string;
+  }
 
 const RentModal = () => {
 
     const router = useRouter();
     const rentModal = useRentModal();
+    const [locations, setLocations] = useState<Location[]>([]);
 
     const [step, setStep] = useState(STEPS.LOCATION);
     const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        axios.get("/api/locations").then((response) => {
+          setLocations(response.data);
+        });
+      }, []);
+    
+
+      const addLocation = (label: string) => {
+        axios.post("/api/locations", { label }).then((response) => {
+          setLocations((locations) => [...locations, response.data]);
+        });
+      };
+    
+      const deleteLocation = (id: string) => {
+        axios.delete(`/api/locations/${id}`).then(() => {
+          setLocations((locations) => locations.filter((location) => location.id !== id));
+        });
+      };
 
     const {
         register,
@@ -130,25 +155,27 @@ const RentModal = () => {
 
     let bodyContent = (
         <div className="flex flex-col gap-8">
-            <Heading title="Location"
-            subtitle="Choose where your room is located "/>
-        <div className=" grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
-        
-        {locations.map((item)=>(
-            <div key={item.label} className="col-span-1">
+          <Heading title="Location" subtitle="Choose where your room is located "/>
+          <div className=" grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
+            {locations.map((item)=>(
+              <div key={item.label} className="col-span-1">
                 <LocationInput
-                    onClick={(location)=>setCustomValue('location', location)}
-                    selected={location === item.label}
-                    label={item.label}
+                  onClick={(location)=>setCustomValue('location', location)}
+                  selected={location === item.label}
+                  label={item.label}
                 />
-            </div>
-        ))}
-        
+                <button onClick={() => deleteLocation(item.id)}>Delete</button>
+              </div>
+            ))}
+          </div>
+          <input type="text" placeholder="Add location" onKeyDown={(e) => {
+  if (e.key === 'Enter') {
+    addLocation((e.target as HTMLInputElement).value);
+    (e.target as HTMLInputElement).value = '';
+  }
+}} />
         </div>
-
-
-        </div>
-    )
+      );
 
     if (step === STEPS.INFO) {
         bodyContent= (

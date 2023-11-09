@@ -61,6 +61,10 @@ model Listing {
   user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   reservations Reservation[]
 }
+model Location {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  label   String
+}
 
 model Reservation {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
