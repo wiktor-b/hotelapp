@@ -6,6 +6,7 @@ import { useMemo, useState } from "react";
 import Heading from "../Heading";
 import LocationInput from "../inputs/LocationInput";
 import { FieldValues, useForm } from "react-hook-form";
+import Counter from "../inputs/Counter";
 
 const locations = [
 {
@@ -60,6 +61,7 @@ const RentModal = () => {
         });
 
     const location = watch('location');
+    const guestCount = watch('guestCount');
 
     const setCustomValue = (id:string, value:any) => {
         setValue(id, value,{
@@ -115,12 +117,29 @@ const RentModal = () => {
         </div>
     )
 
+    if (step === STEPS.INFO) {
+        bodyContent= (
+            <div className="flex flex-col gap-8">
+                <Heading
+                title="Information"
+                subtitle="What amenities are provided?"
+                />
+                <Counter
+                    title="Guests"
+                    subtitle="How many guests can you accomodate?"
+                    value={guestCount}
+                    onChange={(value)=>setCustomValue('guestCount', value)}
+                />
+            </div>
+        )
+    }
+
 
     return ( 
         <Modal
         isOpen={rentModal.isOpen}
         onClose={rentModal.close}
-        onSubmit={rentModal.close}
+        onSubmit={onNext}
         actionLabel={actionLabel}
         secondaryLabel={secondaryLabel}
         secondaryAction={step === STEPS.LOCATION ? undefined : onBack}
