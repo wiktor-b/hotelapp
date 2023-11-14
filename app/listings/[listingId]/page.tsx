@@ -22,7 +22,7 @@ const ListingPage = async ({ params }: { params: IParams }) => {
   }
 
   return (
-    <div className="pt-8">
+    <div>
       <ListingClient
         listing={listing}
         reservations={reservations}
