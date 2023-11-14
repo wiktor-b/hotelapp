@@ -2,10 +2,9 @@ import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb";
 
 export async function GET(request: Request) {
-    const locations = await prisma.location.findMany();
-    return NextResponse.json(locations);
-  }
-  
+  const locations = await prisma.location.findMany();
+  return NextResponse.json(locations);
+}
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -18,8 +17,4 @@ export async function POST(request: Request) {
   });
 
   return NextResponse.json(location);
-
-
-  
 }
-

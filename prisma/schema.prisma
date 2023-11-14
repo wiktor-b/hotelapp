@@ -54,16 +54,19 @@ model Listing {
   roomCount     Int
   bathroomCount Int
   guestCount    Int
-  location      String
+  location      Location @relation(fields: [locationId], references: [id])
   userId        String   @db.ObjectId
   price         Int
 
   user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   reservations Reservation[]
+  locationId   String        @db.ObjectId
 }
+
 model Location {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  id      String    @id @default(auto()) @map("_id") @db.ObjectId
   label   String
+  Listing Listing[]
 }
 
 model Reservation {
