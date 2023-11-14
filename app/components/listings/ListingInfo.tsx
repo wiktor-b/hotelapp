@@ -29,7 +29,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
     <div className="col-span-4 flex flex-col gap-8">
       <div className="flex flex-col gap-2">
         <Heading title={title} />
-        <hr/>
+        <hr />
         <div
           className="
             text-xl 
