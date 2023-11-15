@@ -4,7 +4,7 @@ import getCurrentUser from "@/app/actions/getCurrentUser";
 import getReservations from "@/app/actions/getReservations";
 import BookingsClient from "./BookingsClient";
 
-const TripsPage = async () => {
+const BookingsPage = async () => {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
@@ -26,4 +26,4 @@ const TripsPage = async () => {
   );
 };
 
-export default TripsPage;
+export default BookingsPage;

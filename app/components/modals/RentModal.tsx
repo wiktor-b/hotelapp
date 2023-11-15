@@ -13,22 +13,6 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-// export const locations = [
-// {
-//     label: "Gdańsk",
-// },
-// {
-//     label: "Kraków",
-// },
-// {
-//     label: "Sopot",
-// },
-// {
-//     label: "Gdynia",
-// },
-
-// ]
-
 enum STEPS {
   LOCATION = 0,
   INFO = 1,
@@ -64,7 +48,7 @@ const RentModal = () => {
   const deleteLocation = (id: string) => {
     axios.delete(`/api/locations/${id}`).then(() => {
       setLocations((locations) =>
-        locations.filter((location) => location.id !== id),
+        locations.filter((location) => location.id !== id)
       );
     });
   };

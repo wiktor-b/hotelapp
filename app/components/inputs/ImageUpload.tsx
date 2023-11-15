@@ -2,7 +2,7 @@
 
 import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { TbPhotoPlus } from "react-icons/tb";
 
 declare global {
@@ -21,6 +21,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => {
     },
     [onChange]
   );
+
   return (
     <CldUploadWidget
       onUpload={handleUpload}

@@ -45,7 +45,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
         >
           <AiOutlineMenu />
           <div className="hidden md:block">
-            <Avatar src=""/>
+            <Avatar src="" />
           </div>
         </div>
       </div>
@@ -54,9 +54,27 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           <div className="flex flex-col cursor-pointer">
             {currentUser ? (
               <>
-                <MenuItem onClick={() => {router.push("/trips");setIsOpen(false)}} label="My bookings" />
-                <MenuItem onClick={() => {}} label="My properties" />
-                <MenuItem onClick={() => {}} label="My favorites" />
+                <MenuItem
+                  onClick={() => {
+                    router.push("/bookings");
+                    setIsOpen(false);
+                  }}
+                  label="My bookings"
+                />
+                <MenuItem
+                  onClick={() => {
+                    router.push("/reservations");
+                    setIsOpen(false);
+                  }}
+                  label="Guests reservations"
+                />
+                <MenuItem
+                  onClick={() => {
+                    router.push("/favorites");
+                    setIsOpen(false);
+                  }}
+                  label="My favorites"
+                />
                 <hr />
                 <MenuItem onClick={() => signOut()} label="Logout" />
               </>
