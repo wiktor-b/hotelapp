@@ -3,9 +3,10 @@ import { SafeListing, SafeUser } from "@/app/types";
 import Heading from "@/app/components/Heading";
 import Container from "@/app/components/Container";
 import ListingCard from "@/app/components/listings/ListingCard";
+import getFavorites from "../actions/getFavorites";
 
 interface FavoritesClientProps {
-  listings: SafeListing[];
+  listings: Awaited<ReturnType<typeof getFavorites>>;
   currentUser?: SafeUser | null;
 }
 
