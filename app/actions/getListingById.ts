@@ -14,6 +14,7 @@ export default async function getListingById(params: IParams) {
       },
       include: {
         user: true,
+        location: true,
       },
     });
 

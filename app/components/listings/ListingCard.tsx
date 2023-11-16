@@ -95,7 +95,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
             <FavButton listingId={data.id} currentUser={currentUser} />
           </div>
         </div>
-        <div className="font-semibold text-lg">{location}</div>
+        <div className="font-semibold text-lg">{location.label}</div>
         <div className="font-light text-neutral-500">
           {reservationDate || title}
         </div>

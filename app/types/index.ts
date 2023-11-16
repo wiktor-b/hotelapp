@@ -1,18 +1,12 @@
-import { Listing, Reservation, User } from "@prisma/client";
+import { Reservation, User } from "@prisma/client";
+import getListingById from "../actions/getListingById";
+import getReservations from "../actions/getReservations";
 
-export type SafeListing = Omit<Listing, "createdAt"> & {
-  createdAt: string;
-};
+export type SafeListing = NonNullable<
+  Awaited<ReturnType<typeof getListingById>>
+>;
 
-export type SafeReservation = Omit<
-  Reservation,
-  "createdAt" | "startDate" | "endDate" | "listing"
-> & {
-  createdAt: string;
-  startDate: string;
-  endDate: string;
-  listing: SafeListing;
-};
+export type SafeReservation = Awaited<ReturnType<typeof getReservations>>[0];
 
 export type SafeUser = Omit<
   User,

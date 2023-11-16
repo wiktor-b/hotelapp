@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     roomCount,
     bathroomCount,
     guestCount,
-    location,
+    locationId,
     price,
   } = body;
 
@@ -29,9 +29,9 @@ export async function POST(request: Request) {
       roomCount,
       bathroomCount,
       guestCount,
-      location,
+      location: { connect: { id: locationId } },
+      user: { connect: { id: currentUser.id } },
       price: parseInt(price, 10),
-      userId: currentUser.id,
     },
   });
 

@@ -62,7 +62,7 @@ const RentModal = () => {
     reset,
   } = useForm<FieldValues>({
     defaultValues: {
-      location: "",
+      locationId: "",
       guestCount: 1,
       roomCount: 1,
       bathroomCount: 1,
@@ -73,7 +73,7 @@ const RentModal = () => {
     },
   });
 
-  const location = watch("location");
+  const location = watch("locationId");
   const guestCount = watch("guestCount");
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
@@ -138,8 +138,8 @@ const RentModal = () => {
         {locations.map((item) => (
           <div key={item.label} className="col-span-1">
             <LocationInput
-              onClick={(location) => setCustomValue("location", location)}
-              selected={location === item.label}
+              onClick={() => setCustomValue("locationId", item.id)}
+              selected={location === item.id}
               label={item.label}
             />
             <button onClick={() => deleteLocation(item.id)}>Delete</button>

@@ -7,7 +7,7 @@ export interface IListingsParams {
   bathroomCount?: number;
   startDate?: string;
   endDate?: string;
-  location?: string;
+  locationId?: string;
 }
 
 export default async function getListings(params: IListingsParams) {
@@ -17,8 +17,8 @@ export default async function getListings(params: IListingsParams) {
       roomCount,
       guestCount,
       bathroomCount,
-      location,
       startDate,
+      locationId,
       endDate,
     } = params;
 
@@ -46,8 +46,8 @@ export default async function getListings(params: IListingsParams) {
       };
     }
 
-    if (location) {
-      query.location = location;
+    if (locationId) {
+      query.locationId = locationId;
     }
 
     if (startDate && endDate) {
@@ -73,6 +73,9 @@ export default async function getListings(params: IListingsParams) {
       where: query,
       orderBy: {
         createdAt: "desc",
+      },
+      include: {
+        location: true,
       },
     });
 
