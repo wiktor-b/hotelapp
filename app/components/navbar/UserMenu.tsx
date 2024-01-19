@@ -33,15 +33,17 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
-        <div
-          onClick={onRent}
-          className="hidden md:block text-sm font-semibold py-3 px-4 rounded-md hover:bg-neutral-100 transition cursor-pointer"
-        >
-          Add new room
-        </div>
+        {currentUser?.role === "admin" && (
+          <div
+            onClick={onRent}
+            className="hidden md:block text-sm font-semibold py-3 px-4 rounded-md hover:bg-neutral-100 transition cursor-pointer"
+          >
+            Add new room
+          </div>
+        )}
         <div
           onClick={toggleOpen}
-          className="p-3 border-[1px] flex flex-row items-center gap-3 rounded-md cursor-pointer hover:shadow-md transition "
+          className=" p-3 border-[1px] flex flex-row items-center gap-3 rounded-md cursor-pointer hover:shadow-md transition "
         >
           <AiOutlineMenu />
           <div className="hidden md:block">
@@ -50,7 +52,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
         </div>
       </div>
       {isOpen && (
-        <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm ">
+        <div className=" absolute rounded-xl shadow-md w-32 bg-white overflow-hidden right-0 top-12 text-sm ">
           <div className="flex flex-col cursor-pointer">
             {currentUser ? (
               <>
@@ -61,13 +63,15 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                   }}
                   label="My bookings"
                 />
-                <MenuItem
-                  onClick={() => {
-                    router.push("/reservations");
-                    setIsOpen(false);
-                  }}
-                  label="Guests reservations"
-                />
+                {currentUser?.role === "admin" && (
+                  <MenuItem
+                    onClick={() => {
+                      router.push("/reservations");
+                      setIsOpen(false);
+                    }}
+                    label="Guests reservations"
+                  />
+                )}
                 <MenuItem
                   onClick={() => {
                     router.push("/favorites");
@@ -75,13 +79,15 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                   }}
                   label="My favorites"
                 />
-                <MenuItem
-                  onClick={() => {
-                    router.push("/properties");
-                    setIsOpen(false);
-                  }}
-                  label="Properties"
-                />
+                {currentUser?.role === "admin" && (
+                  <MenuItem
+                    onClick={() => {
+                      router.push("/properties");
+                      setIsOpen(false);
+                    }}
+                    label="Properties"
+                  />
+                )}
                 <hr />
                 <MenuItem onClick={() => signOut()} label="Logout" />
               </>

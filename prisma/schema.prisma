@@ -16,6 +16,7 @@ model User {
   updatedAt      DateTime  @updatedAt
   email          String?   @unique
   name           String?
+  role           String   @default("user")
   emailVerified  DateTime?
   image          String?
   hashedPassword String?
